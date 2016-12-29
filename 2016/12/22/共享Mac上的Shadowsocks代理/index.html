@@ -99,18 +99,17 @@
 <blockquote>
 <p>forward-socks5t   /               127.0.0.1:1080 .</p>
 </blockquote>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>搜索到“listen-address  127.0.0.1:8118”（不含双引号）那一行，去掉注释的符号，把127.0.0.1改为0.0.0.0（否则只能作用于本机），端口号默认或选择一个未占用的端口</p>
+<blockquote>
+<p>listen-address  0.0.0.0:1992</p>
+</blockquote>
 </li>
 </ul>
 </li>
-</ol>
-<pre><code>* 搜索到“listen-address  127.0.0.1:8118”（不含双引号）那一行，去掉注释的符号，把127.0.0.1改为0.0.0.0（否则只能作用于本机），端口号默认或选择一个未占用的端口
-
-    &gt; listen-address  0.0.0.0:1992
-</code></pre><ol>
 <li><p>在终端中运行</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /usr/<span class="built_in">local</span>/sbin/</div></pre></td></tr></table></figure>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./privoxy --no-daemon /usr/<span class="built_in">local</span>/etc/privoxy/config</div></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/sbin/</div></pre></td></tr></table></figure>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./privoxy --no-daemon /usr/local/etc/privoxy/config</div></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>完成上诉步骤，通过访问电脑IP的1992端口即能共享Mac的Shadowsocks。</p>
