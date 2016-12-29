@@ -3,21 +3,26 @@
 <head>
   <meta charset="utf-8">
   
-  <title>BLACKHOLE</title>
+  <title>SSH连线时出现「WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!」 | BLACKHOLE</title>
 
   
   <meta name="author" content="haoliangh">
   
 
   
+  <meta name="description" content="SSH连线时出现「WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!」解决方法12345678910111213@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@    WARNING">
+  
 
+  
+  
+  <meta name="keywords" content="">
   
 
   <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-  
+  <meta property="og:title" content="SSH连线时出现「WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!」"/>
 
   <meta property="og:site_name" content="BLACKHOLE"/>
 
@@ -56,12 +61,11 @@
 </header>
 
     <main class="site-main posts-loop">
-    
-  <article>
+    <article>
 
   
     
-    <h3 class="article-title"><a href="/2016/12/29/SSH連現時出現「WARNING-REMOTE-HOST-IDENTIFICATION-HAS-CHANGED-」解決辦法/"><span>SSH连线时出现「WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!」</span></a></h3>
+    <h3 class="article-title"><span>SSH连线时出现「WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!」</span></h3>
     
   
 
@@ -105,81 +109,10 @@
   </div>
 </article>
 
-
-
-  <article>
-
-  
-    
-    <h3 class="article-title"><a href="/2016/12/22/共享Mac上的Shadowsocks代理/"><span>共享Mac上的Shadowsocks代理</span></a></h3>
-    
   
 
-  <div class="article-top-meta">
-    <span class="posted-on">
-      <a href="/2016/12/22/共享Mac上的Shadowsocks代理/" rel="bookmark">
-        <time class="entry-date published" datetime="2016-12-22T15:01:17.000Z">
-          2016-12-22
-        </time>
-      </a>
-    </span>
-  </div>
 
 
-  
-
-  <div class="article-content">
-    <div class="entry">
-      
-        <h2 id="共享Mac上的Shadowsocks代理，需要借助Privoxy。"><a href="#共享Mac上的Shadowsocks代理，需要借助Privoxy。" class="headerlink" title="共享Mac上的Shadowsocks代理，需要借助Privoxy。"></a>共享Mac上的Shadowsocks代理，需要借助Privoxy。</h2><ol>
-<li><p>在 <a href="http://www.privoxy.org/#DOWNLOAD" target="_blank" rel="external">http://www.privoxy.org/#DOWNLOAD</a> 下载安装</p>
-</li>
-<li><p>修改 /usr/local/etc/privoxy/config</p>
-<ul>
-<li><p>搜索到“forward-socks5t   /”（不含双引号）那一行，去掉注释的符号，把端口改为1080（系Shadowsocks的SOCKS5端口）</p>
-<blockquote>
-<p>forward-socks5t   /               127.0.0.1:1080 .</p>
-</blockquote>
-</li>
-<li><p>搜索到“listen-address  127.0.0.1:8118”（不含双引号）那一行，去掉注释的符号，把127.0.0.1改为0.0.0.0（否则只能作用于本机），端口号默认或选择一个未占用的端口</p>
-<blockquote>
-<p>listen-address  0.0.0.0:1992</p>
-</blockquote>
-</li>
-</ul>
-</li>
-<li><p>在终端中运行</p>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cd /usr/local/sbin/</div></pre></td></tr></table></figure>
- <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./privoxy --no-daemon /usr/local/etc/privoxy/config</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<p>完成上诉步骤，通过访问电脑IP的1992端口即能共享Mac的Shadowsocks。</p>
-
-      
-    </div>
-
-  </div>
-
-  <div class="article-footer">
-    <div class="article-meta pull-left">
-
-    
-
-    
-
-    </div>
-
-    
-  </div>
-</article>
-
-
-
-
-<nav class="pagination">
-  
-  
-</nav>
     </main>
 
     <footer class="site-footer">
