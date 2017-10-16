@@ -1,0 +1,159 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>centos搭建git服务器 | BLACKHOLE</title>
+
+  
+  <meta name="author" content="haoliangh">
+  
+
+  
+  <meta name="description" content="CentOS 搭建git服务器首先需要装好CentOS系统，作为测试，你可以选择装在虚拟机上，这样比较方便。这步默认你会，就不讲了。有了CentOS，那么如何搭建Git服务器呢？1、首先需要安装Git，可以使用yum源在线安装：
+1[root@localhost Desktop]# yum inst">
+  
+
+  
+  
+  <meta name="keywords" content="">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="centos搭建git服务器"/>
+
+  <meta property="og:site_name" content="BLACKHOLE"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="BLACKHOLE" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+</head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">BLACKHOLE</a>
+    </h1>
+    <p class="site-description"></p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">主页</a></li>
+      
+        <li><a href="/archives">归档</a></li>
+      
+        <li><a href="/atom.xml">rss</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>centos搭建git服务器</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2017/10/16/centos-build-git-server/" rel="bookmark">
+        <time class="entry-date published" datetime="2017-10-16T03:52:12.000Z">
+          2017-10-16
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <h2 id="CentOS-搭建git服务器"><a href="#CentOS-搭建git服务器" class="headerlink" title="CentOS 搭建git服务器"></a>CentOS 搭建git服务器</h2><p>首先需要装好CentOS系统，作为测试，你可以选择装在虚拟机上，这样比较方便。这步默认你会，就不讲了。<br>有了CentOS，那么如何搭建Git服务器呢？<br><strong>1、首先需要安装Git，可以使用yum源在线安装：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@localhost Desktop]# yum install -y git</div></pre></td></tr></table></figure>
+<p><strong>2、创建一个git用户，用来运行git服务</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># adduser 用户名</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"># passwd 密码</div></pre></td></tr></table></figure>
+<p><strong>3、初始化git仓库：这里我们选择/data/git/learngit.git来作为我们的git仓库</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[root@localhost git]# git init --bare learngit.git  </div><div class="line">Initialized empty Git repository in /data/git/learngit.git/</div></pre></td></tr></table></figure>
+<p>执行以上命令，会创建一个裸仓库，裸仓库没有工作区，因为服务器上的Git仓库纯粹是为了共享，所以不让用户直接登录到服务器上去改工作区，并且服务器上的Git仓库通常都以.git结尾。然后，把owner改为git：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[root@localhost git]# chown -R 用户名:用户名 learngit.git</div></pre></td></tr></table></figure>
+<p><strong>4、在这里，Git服务器就已经搭得差不多了。下面我们在客户端clone一下远程仓库</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">haoliangh@XXX /E/testgit/8.34</div><div class="line">$ git clone git@192.168.8.34:/data/git/learngit.git</div><div class="line">Cloning into &apos;learngit&apos;...</div><div class="line">The authenticity of host &apos;192.168.8.34 (192.168.8.34)&apos; can&apos;t be established.</div><div class="line">RSA key fingerprint is 2b:55:45:e7:4c:29:cc:05:33:78:03:bd:a8:cd:08:9d.</div><div class="line">Are you sure you want to continue connecting (yes/no)? yes</div><div class="line">Warning: Permanently added &apos;192.168.8.34&apos; (RSA) to the list of known hosts.</div><div class="line">git@192.168.8.34&apos;s password:</div></pre></td></tr></table></figure>
+<p>这里两点需要注意：第一，当你第一次使用Git的clone或者push命令连接GitHub时，会得到一个警告：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">The authenticity of host &apos;github.com (xx.xx.xx.xx)&apos; can&apos;t be established.</div><div class="line">RSA key fingerprint is xx.xx.xx.xx.xx.</div><div class="line">Are you sure you want to continue connecting (yes/no)?</div></pre></td></tr></table></figure>
+<p>这是因为Git使用SSH连接，而SSH连接在第一次验证GitHub服务器的Key时，需要你确认GitHub的Key的指纹信息是否真的来自GitHub的服务器，输入yes回车即可。</p>
+<p>Git会输出一个警告，告诉你已经把GitHub的Key添加到本机的一个信任列表里了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Warning: Permanently added &apos;github.com&apos; (RSA) to the list of known hosts.</div></pre></td></tr></table></figure>
+<p>这个警告只会出现一次，后面的操作就不会有任何警告了。<br>如果你实在担心有人冒充GitHub服务器，输入yes前可以对照GitHub的RSA Key的指纹信息是否与SSH连接给出的一致。<br>第二，这里提示你输入密码才能clone，当然如果你知道密码，可以键入密码来进行clone，但是更为常见的方式，是利用SSH的公钥来完成验证。</p>
+<p><strong>5、创建SSH Key</strong><br>首先在客户端用户主目录下，看看有没有.ssh目录，如果有，再看看这个目录下有没有id_rsa和id_rsa.pub这两个文件，如果已经有了，可直接跳到下一步。如果没有，打开Shell（Windows下打开Git Bash），创建SSH Key：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ssh-keygen -t rsa -C &quot;youremail@example.com&quot;</div></pre></td></tr></table></figure>
+<p>你需要把邮件地址换成你自己的邮件地址，然后一路回车，使用默认值即可，由于这个Key也不是用于军事目的，所以也无需设置密码。</p>
+<p>如果一切顺利的话，可以在用户主目录里找到.ssh目录，里面有id_rsa和id_rsa.pub两个文件，这两个就是SSH Key的秘钥对，id_rsa是私钥，不能泄露出去，id_rsa.pub是公钥，可以放心地告诉任何人。</p>
+<p><strong>6、Git服务器打开RSA认证</strong><br>然后就可以去Git服务器上添加你的公钥用来验证你的信息了。在Git服务器上首先需要将/etc/ssh/sshd_config中将RSA认证打开，即：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1.RSAAuthentication yes     </div><div class="line">2.PubkeyAuthentication yes     </div><div class="line">3.AuthorizedKeysFile  .ssh/authorized_keys</div></pre></td></tr></table></figure>
+<p>这里我们可以看到公钥存放在.ssh/authorized_keys文件中。所以我们在/home/用户名 下创建.ssh目录，然后创建authorized_keys文件，并将刚生成的公钥导入进去。</p>
+<p>然后再次clone的时候，或者是之后push的时候，就不需要再输入密码了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">haoliangh@XXX/E/testgit/8.34</div><div class="line">$ git clone git@192.168.8.34:/data/git/learngit.git</div><div class="line">Cloning into &apos;learngit&apos;...</div><div class="line">warning: You appear to have cloned an empty repository.</div><div class="line">Checking connectivity... done.</div></pre></td></tr></table></figure>
+<p><strong>7、禁用git用户的shell登陆</strong><br>出于安全考虑，第二步创建的git用户不允许登录shell，这可以通过编辑/etc/passwd文件完成。找到类似下面的一行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git:x:1001:1001:,,,:/home/git:/bin/bash</div></pre></td></tr></table></figure>
+<p>最后一个冒号后改为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell</div></pre></td></tr></table></figure>
+<p>这样，git用户可以正常通过ssh使用git，但无法登录shell，因为我们为git用户指定的git-shell每次一登录就自动退出。</p>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2017 haoliangh
+    
+  </p>
+</footer>
+    
+  </div>
+</div>
+</body>
+</html>
